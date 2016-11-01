@@ -25,12 +25,17 @@ public class FoodPriceService {
 
 	public FoodPrice create(FoodPrice fp) {
 		FoodPrice ret = fpRepo.save(fp);
-		//fpRepoJdbc.rollbacktest();
 		return ret;
 	}
 
 	public void delete(Integer id) {
 		fpRepo.delete(id);
+	}
+	
+	public FoodPrice transactionaltest(FoodPrice fp) {
+		FoodPrice ret = fpRepo.save(fp);
+		fpRepo.rollbacktest();
+		return ret;
 	}
 
 }

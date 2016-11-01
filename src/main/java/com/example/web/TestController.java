@@ -53,7 +53,7 @@ public class TestController {
 		foodService.create(fp);
 		return "redirect:/";
 	}
-
+	
 	@PostMapping(path = "delete")
 	String delete(@RequestParam Integer id) {
 		foodService.delete(id);
@@ -62,6 +62,20 @@ public class TestController {
 
 	@PostMapping(path = "back")
 	String back() {
+		return "redirect:/";
+	}
+	
+	@PostMapping(path = "tran")
+	String tran(Integer id, @Validated FoodPriceForm form, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "reg";
+		}
+
+		FoodPrice fp = new FoodPrice();
+		BeanUtils.copyProperties(form, fp);
+		fp.setId(id);
+		foodService.transactionaltest(fp);
 		return "redirect:/";
 	}
 
